@@ -3,38 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Send The Message</title>
+    <title>Send The Song</title>
     <link rel="stylesheet" href="style.css">
-</head>
-<body>
-    <header class="header">
-        <h1>sendthemessage</h1>
-        <nav>
-            <a href="index.html">Home</a>
-            <a href="submit.html">Submit</a>
-            <a href="browse.html">Browse</a>
-        </nav>
-    </header>
-
-    <main class="main-content">
-        <section class="intro">
-            <h2>A bunch of untold words</h2>
-            <p>Express your untold message</p>
-            <button onclick="navigateTo('form')">Tell Your Story →</button>
-        </section>
-        
-        <section class="feedback">
-            <h3>Share Your Message</h3>
-            <p>Choose a song and write a heartfelt message to someone special.</p>
-            <button onclick="navigateTo('form')">Create Message →</button>
-        </section>
-    </main>
-
-    <footer class="footer">
-        <p>© 2024 SendTheSong. All rights reserved.</p>
-        <p>Created by <a href="https://instagram.com/niki_nenobais" target="_blank">@niki_nenobais</a></p>
-    </footer>
-
     <script>
         // Fungsi navigateTo untuk mengarahkan ke halaman yang sesuai
         function navigateTo(page) {
@@ -49,5 +19,47 @@
             }
         }
     </script>
+</head>
+<body>
+    <header class="header">
+        <h1>sendthemessage</h1>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="submit.html">Submit</a>
+            <a href="browse.html">Browse</a>
+        </nav>
+    </header>
+
+    <main class="main-content">
+        <section class="intro">
+            <h2>A bunch of untold words, sent </h2>
+            <p>Express your untold message</p>
+            <button onclick="navigateTo('form')">Tell Your Story →</button>
+        </section>
+        
+        <!-- Box untuk Share Your Message -->
+        <section class="message-box">
+            <h3>Share Your Message</h3>
+            <p>write a heartfelt message to someone special.</p>
+            <button onclick="navigateTo('form')">Create Message →</button>
+        </section>
+
+        <!-- Box untuk Browse Message -->
+        <section class="message-box">
+            <h3>Browse Message</h3>
+            <p>Explore other messages and feel the connection.</p>
+            <button onclick="navigateTo('browse')">Browse Messages →</button>
+            
+            <!-- Detail Message di bawah Browse Message -->
+            <div class="detail-message">
+                <p>You can click on any message card to read the full story.</p>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <p>© 2024 SendTheSong. All rights reserved.</p>
+        <p>Created by <a href="https://instagram.com/niki_nenobais" target="_blank">@niki_nenobais</a></p>
+    </footer>
 </body>
 </html>
