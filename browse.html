@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Browse Messages</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&family=Poppins&display=swap" rel="stylesheet">
+    <style>
+        /* Global Styles */
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: #f9f9f9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            padding: 20px;
+            margin: 0;
+        }
+
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 600px;
+        }
+
+        h2 {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .message {
+            padding: 15px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            position: relative;
+        }
+
+        .message:hover {
+            background-color: #f0f0f0;
+        }
+
+        .recipient {
+            font-family: 'Poppins', sans-serif;
+            font-weight: bold;
+            font-size: 1rem;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .message-text {
+            font-family: 'Dancing Script', cursive;
+            font-size: 1.2rem;
+            margin: 0;
+        }
+
+        .message small {
+            font-family: 'Poppins', sans-serif;
+            color: #777;
+            font-size: 0.9rem;
+            display: block;
+            margin-top: 10px;
+        }
+
+        .message-list {
+            max-height: 500px;
+            overflow-y: auto;
+        }
+
+        .full-message {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.7);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .full-message-content {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            max-width: 500px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+            position: relative;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Messages</h2>
+        <div id="messagesList" class="message-list">
+            <!-- Pesan akan dimuat di sini -->
+        </div>
+    </div>
+
+    <div id="fullMessageView" class="full-message">
+        <div class="full-message-content">
+            <button class="close-btn" onclick="closeFullMessage()">×</button>
+            <div id="fullMessageContent"></div>
+        </div>
+    </div>
+
+    <script>
+        // Mengambil pesan dari localStorage
+        const messages = JSON.parse(localStorage.getItem('stories')) || [];
+        const messagesList = document.getElementById('messagesList');
+        const fullMessageView = document.getElementById('fullMessageView');
+        const fullMessageContent = document.getElementById('fullMessageContent');
+
+        if (messages.length === 0) {
+            messagesList.innerHTML = '<p>No messages found.</p>';
+        } else {
+            messages.forEach((msg, index) => {
+                const messageDiv = document.createElement('div');
+                messageDiv.classList.add('message');
+                messageDiv.innerHTML = `
+                    <div class="recipient">To: ${msg.recipientName}</div>
+                    <p class="message-text">${limitText(msg.message)}</p>
+                    <small>${new Date(msg.timestamp).toLocaleString()}</small>
+                `;
+
+                // Menambahkan event listener untuk membuka pesan penuh saat diklik
+                messageDiv.addEventListener('click', () => {
+                    openFullMessage(index);
+                });
+
+                messagesList.appendChild(messageDiv);
+            });
+        }
+
+        function limitText(text, maxLength = 50) {
+            return text.length > maxLength ? text.substring(0, maxLength) + '...' : text;
+        }
+
+        function openFullMessage(index) {
+            const msg = messages[index];
+            fullMessageContent.innerHTML = `
+                <h2 style="font-family: 'Poppins', sans-serif;">To: ${msg.recipientName}</h2>
+                <p style="font-family: 'Dancing Script', cursive; font-size: 1.5rem;">${msg.message}</p>
+                <small style="font-family: 'Poppins', sans-serif;">${new Date(msg.timestamp).toLocaleString()}</small>
+            `;
+            fullMessageView.style.display = 'flex';
+
+            // Tambahkan event listener untuk tombol Escape
+            document.addEventListener('keydown', escapeHandler);
+
+            // Tambahkan event listener untuk menutup saat mengklik di luar area pesan
+            fullMessageView.addEventListener('click', outsideClickHandler);
+        }
+
+        function escapeHandler(event) {
+            if (event.key === 'Escape') {
+                closeFullMessage();
+            }
+        }
+
+        function outsideClickHandler(event) {
+            // Pastikan klik terjadi di area fullMessageView, bukan di fullMessageContent
+            if (event.target === fullMessageView) {
+                closeFullMessage();
+            }
+        }
+
+        function closeFullMessage() {
+            fullMessageView.style.display = 'none';
+
+            // Hapus event listener yang sebelumnya ditambahkan
+            document.removeEventListener('keydown', escapeHandler);
+            fullMessageView.removeEventListener('click', outsideClickHandler);
+        }
+    </script>
+</body>
+</html>

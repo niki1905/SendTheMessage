@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tell Your Story</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: #f9f9f9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+        }
+        .alert {
+            background-color: #f8d7da;
+            color: #721c24;
+            padding: 10px 15px;
+            border: 1px solid #f5c6cb;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            font-size: 0.9em;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+        .form-group input, .form-group textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-family: 'Poppins', sans-serif;
+        }
+        .form-group textarea {
+            resize: none;
+            height: 100px;
+        }
+        button {
+            background-color: #9999;
+            color: black;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 1em;
+            font-weight: 600;
+        }
+        button:hover {
+            background-color: #black;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="alert">
+            <strong>Message Deletion Not Available:</strong> Once a message is posted, it cannot be removed. Please ensure your messages are appropriate before submitting.
+        </div>
+        <form id="storyForm">
+            <div class="form-group">
+                <label for="recipientName">Recipient Name</label>
+                <input type="text" id="recipientName" placeholder="Enter recipient's name" required>
+            </div>
+            <div class="form-group">
+                <label for="message">Message</label>
+                <textarea id="message" placeholder="Write your message here" required></textarea>
+            </div>
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById('storyForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+            
+            const recipientName = document.getElementById('recipientName').value.trim();
+            const message = document.getElementById('message').value.trim();
+
+            if (!recipientName || !message) {
+                alert('Please fill in all fields!');
+                return;
+            }
+
+            // Simpan data ke local storage (simulasi)
+            const stories = JSON.parse(localStorage.getItem('stories') || '[]');
+            stories.push({ recipientName, message, timestamp: new Date().toISOString() });
+            localStorage.setItem('stories', JSON.stringify(stories));
+
+            alert('Your story has been submitted successfully!');
+            this.reset(); // Reset form setelah submit
+        });
+    </script>
+</body>
+</html>
