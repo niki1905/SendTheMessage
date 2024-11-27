@@ -34,6 +34,19 @@
         <p>© 2024 SendTheSong. All rights reserved.</p>
     </footer>
 
-    <script src="script.js"></script>
+    <script>
+        // Fungsi navigateTo untuk mengarahkan ke halaman yang sesuai
+        function navigateTo(page) {
+            console.log('navigateTo function called with page:', page);  // Debugging log
+
+            if (page === 'form') {
+                console.log('Redirecting to submit.html');  // Debugging log
+                window.location.href = "submit.html";
+            } else if (page === 'browse') {
+                console.log('Redirecting to browse.html');  // Debugging log
+                window.location.href = "browse.html";
+            }
+        }
+    </script>
 </body>
 </html>
