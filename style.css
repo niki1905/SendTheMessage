@@ -12,6 +12,7 @@ body {
     color: #333;
 }
 
+/* Header */
 .header {
     background: #333;
     color: #fff;
@@ -25,6 +26,7 @@ body {
     margin: 0 10px;
 }
 
+/* Main Content */
 .main-content {
     padding: 2rem;
     text-align: center;
@@ -53,10 +55,41 @@ button:hover {
     background: #555;
 }
 
-.feedback {
-    margin-top: 2rem;
+/* Box Styling */
+.message-box {
+    border: 1px solid #ddd; /* Garis tipis */
+    padding: 20px; /* Jarak di dalam box */
+    margin-top: 30px; /* Jarak antar section */
+    border-radius: 5px; /* Sudut kotak melengkung */
+    background-color: #f9f9f9; /* Warna latar belakang kotak */
 }
 
+.message-box h3 {
+    margin-top: 0; /* Menghilangkan margin atas */
+}
+
+.message-box button {
+    padding: 10px 20px;
+    background-color: #black; /* Warna tombol */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.message-box button:hover {
+    background-color: #black; /* Warna tombol saat hover */
+}
+
+/* Detail Message */
+.detail-message {
+    margin-top: 20px; /* Jarak antara Browse Message dan detail */
+    font-size: 1rem;
+    color: #777;
+}
+
+/* Footer */
 .footer {
     background: #f4f4f4;
     padding: 1rem;
@@ -64,4 +97,9 @@ button:hover {
     margin-top: 2rem;
     font-size: 0.9rem;
     color: #666;
+}
+
+.footer a {
+    color: #333;
+    text-decoration: none;
 }
